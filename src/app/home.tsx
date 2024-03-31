@@ -1,9 +1,12 @@
-import { useAnimate, motion, cubicBezier } from "framer-motion";
+import { useAnimate, motion } from "framer-motion";
 
 import homeImage from "@/assets/home.jpg";
-import Image from "next/image";
 import { useEffect } from "react";
-import { AnimatedLines, AnimatedText } from "@/components/animated-text";
+import { AnimatedText } from "@/components/animated-text";
+
+import { serif } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { cubicBezier } from "@/lib/animations";
 
 const Home = () => {
   const [scope, animate] = useAnimate();
@@ -13,7 +16,7 @@ const Home = () => {
       { transform: "translateX(0)" },
       {
         duration: 1,
-        ease: [0.17, 0.67, 0.31, 0.99],
+        ease: cubicBezier,
       }
     );
     animate(
@@ -21,7 +24,7 @@ const Home = () => {
       { width: 0 },
       {
         duration: 1,
-        ease: [0.17, 0.67, 0.31, 0.99],
+        ease: cubicBezier,
       }
     );
     animate(
@@ -30,7 +33,7 @@ const Home = () => {
       {
         duration: 1,
         delay: 2,
-        ease: [0.17, 0.67, 0.31, 0.99],
+        ease: cubicBezier,
       }
     );
   }, []);
@@ -51,7 +54,7 @@ const Home = () => {
             <AnimatedText
               el="p"
               text="Facial aesthetics"
-              className="text-sm uppercase"
+              className="text-sm uppercase pl-[6px] tracking-wide"
               delay={1000}
               animation={{
                 hidden: {
@@ -61,16 +64,17 @@ const Home = () => {
                   opacity: 1,
                   transition: {
                     duration: 0.3,
-                    ease: [0.17, 0.67, 0.31, 0.99],
+                    ease: cubicBezier,
                   },
                 },
               }}
             />
-            <AnimatedLines
+            <AnimatedText
               el="p"
               text={["Experts in facial", "beauty making"]}
-              className="text-6xl tracking-tighter"
+              className="text-7xl tracking-tighter"
               delay={1000}
+              animateLines={true}
               animation={{
                 hidden: {
                   opacity: 0,
@@ -81,16 +85,17 @@ const Home = () => {
                   x: 0,
                   transition: {
                     duration: 1,
-                    ease: [0.17, 0.67, 0.31, 0.99],
+                    ease: cubicBezier,
                   },
                 },
               }}
             />
-            <AnimatedLines
+            <AnimatedText
               el="p"
               text={["Straightforward"]}
-              className="text-6xl italic"
+              className={cn("text-7xl italic", serif.className)}
               delay={1200}
+              animateLines={true}
               animation={{
                 hidden: {
                   opacity: 0,
@@ -101,23 +106,24 @@ const Home = () => {
                   x: 0,
                   transition: {
                     duration: 1,
-                    ease: [0.17, 0.67, 0.31, 0.99],
+                    ease: cubicBezier,
                   },
                 },
               }}
             />
           </div>
-          <div className="w-[40%] border-l p-6 flex justify-center items-end">
-            <AnimatedLines
+          <div className="w-[40%] border-l p-6 flex items-end">
+            <AnimatedText
               el="p"
               text={[
-                "Profesional facial",
+                `Profesional facial`,
                 "assessments and clear",
                 "visualizations to make the",
                 "journey easier.",
               ]}
-              className="text-xl text-foreground-muted"
+              className="text-2xl text-foreground-muted"
               delay={1000}
+              animateLines={true}
             />
           </div>
         </div>

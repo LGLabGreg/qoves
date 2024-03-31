@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Sora } from "next/font/google";
+import { barlow } from "@/lib/fonts";
 import "./globals.css";
-
-const font = Sora({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Qoves",
@@ -16,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={barlow.className}>{children}</body>
     </html>
   );
 }

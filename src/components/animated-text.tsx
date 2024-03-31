@@ -1,5 +1,6 @@
 import { motion, useInView, useAnimation, Variant } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { cubicBezier } from "@/lib/animations";
 
 type AnimatedTextProps = {
   text: string | string[];
@@ -8,6 +9,7 @@ type AnimatedTextProps = {
   once?: boolean;
   delay?: number;
   repeatDelay?: number;
+  animateLines?: boolean;
   animation?: {
     hidden: Variant;
     visible: Variant;
@@ -24,7 +26,7 @@ const defaultAnimations = {
     y: 0,
     transition: {
       duration: 1,
-      ease: [0.17, 0.67, 0.31, 0.99],
+      ease: cubicBezier,
     },
   },
 };
@@ -36,6 +38,7 @@ export const AnimatedText = ({
   once,
   delay,
   repeatDelay,
+  animateLines,
   animation = defaultAnimations,
 }: AnimatedTextProps) => {
   const controls = useAnimation();
@@ -69,6 +72,36 @@ export const AnimatedText = ({
 
     return () => clearTimeout(timeout);
   }, [isInView]);
+
+  if (animateLines) {
+    return (
+      <Wrapper className={className}>
+        <span className="sr-only">{textArray.join(" ")}</span>
+        <motion.span
+          ref={ref}
+          initial="hidden"
+          animate={controls}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } },
+            hidden: {},
+          }}
+          aria-hidden
+        >
+          {textArray.map((line, lineIndex) => {
+            return (
+              <motion.span
+                key={`${line}-${lineIndex}`}
+                className="inline-block w-full"
+                variants={animation}
+              >
+                {line}
+              </motion.span>
+            );
+          })}
+        </motion.span>
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper className={className}>
@@ -100,74 +133,6 @@ export const AnimatedText = ({
               </span>
             ))}
           </span>
-        ))}
-      </motion.span>
-    </Wrapper>
-  );
-};
-
-export const AnimatedLines = ({
-  text,
-  el: Wrapper = "p",
-  className,
-  once,
-  delay,
-  repeatDelay,
-  animation = defaultAnimations,
-}: AnimatedTextProps) => {
-  const controls = useAnimation();
-  const textArray = Array.isArray(text) ? text : [text];
-  const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.5, once });
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    const show = () => {
-      controls.start("visible");
-      if (repeatDelay) {
-        timeout = setTimeout(async () => {
-          await controls.start("hidden");
-          controls.start("visible");
-        }, repeatDelay);
-      }
-    };
-
-    if (isInView) {
-      if (delay) {
-        timeout = setTimeout(() => {
-          show();
-        }, delay);
-      } else {
-        show();
-      }
-    } else {
-      controls.start("hidden");
-    }
-
-    return () => clearTimeout(timeout);
-  }, [isInView]);
-
-  return (
-    <Wrapper className={className}>
-      <span className="sr-only">{textArray.join(" ")}</span>
-      <motion.span
-        ref={ref}
-        initial="hidden"
-        animate={controls}
-        variants={{
-          visible: { transition: { staggerChildren: 0.1 } },
-          hidden: {},
-        }}
-        aria-hidden
-      >
-        {textArray.map((line, lineIndex) => (
-          <motion.span
-            key={`${line}-${lineIndex}`}
-            className="inline-block"
-            variants={animation}
-          >
-            {line}
-          </motion.span>
         ))}
       </motion.span>
     </Wrapper>
