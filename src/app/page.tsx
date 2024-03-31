@@ -7,7 +7,7 @@ import Preloader from "@/components/preloader";
 import HomePage from "./home";
 
 export default function Home() {
-  const [loaded, setLoaded] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   return (
     <>
       <AnimatePresence>

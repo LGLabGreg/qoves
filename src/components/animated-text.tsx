@@ -10,6 +10,7 @@ type AnimatedTextProps = {
   delay?: number;
   repeatDelay?: number;
   animateLines?: boolean;
+  breakLines?: boolean;
   animation?: {
     hidden: Variant;
     visible: Variant;
@@ -25,7 +26,7 @@ const defaultAnimations = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1,
+      duration: 0.7,
       ease: cubicBezier,
     },
   },
@@ -39,6 +40,7 @@ export const AnimatedText = ({
   delay,
   repeatDelay,
   animateLines,
+  breakLines,
   animation = defaultAnimations,
 }: AnimatedTextProps) => {
   const controls = useAnimation();
@@ -89,13 +91,16 @@ export const AnimatedText = ({
         >
           {textArray.map((line, lineIndex) => {
             return (
-              <motion.span
-                key={`${line}-${lineIndex}`}
-                className="inline-block w-full"
-                variants={animation}
-              >
-                {line}
-              </motion.span>
+              <>
+                <motion.span
+                  key={`${line}-${lineIndex}`}
+                  className="inline-block"
+                  variants={animation}
+                >
+                  {line}&nbsp;
+                </motion.span>
+                {breakLines && <br />}
+              </>
             );
           })}
         </motion.span>

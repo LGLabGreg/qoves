@@ -1,7 +1,8 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import homeImage from "@/assets/home.jpg";
-import { useEffect, useRef, useState } from "react";
 import { AnimatedText } from "@/components/animated-text";
 
 import { serif } from "@/lib/fonts";
@@ -79,7 +80,6 @@ const Home = () => {
               el="p"
               text="Facial aesthetics"
               className="text-sm uppercase pl-[6px] tracking-wide"
-              delay={1000}
               animation={{
                 hidden: {
                   opacity: 0,
@@ -96,8 +96,7 @@ const Home = () => {
             <AnimatedText
               el="p"
               text={["Experts in facial", "beauty making"]}
-              className="text-7xl tracking-tighter"
-              delay={1000}
+              className="text-7xl tracking-tighter leading-none"
               animateLines={true}
               animation={{
                 hidden: {
@@ -118,7 +117,7 @@ const Home = () => {
               el="p"
               text={["Straightforward"]}
               className={cn("text-7xl italic", serif.className)}
-              delay={1200}
+              delay={200}
               animateLines={true}
               animation={{
                 hidden: {
@@ -146,14 +145,67 @@ const Home = () => {
                 "journey easier.",
               ]}
               className="text-2xl text-foreground-muted"
-              delay={1000}
               animateLines={true}
             />
           </div>
         </div>
         <div className="flex h-[274px]">
           <div className="w-[60%] border-t p-6 flex justify-center items-end">
-            <div className="bg-background-dark w-full h-[200px]"></div>
+            <div className="relative w-full h-[200px] flex flex-col py-3 px-5 text-white">
+              <motion.div
+                animate={{
+                  width: "100%",
+                }}
+                transition={{ duration: 1, ease: cubicBezier }}
+                className="absolute inset-0 h-full w-0 bg-background-dark"
+              ></motion.div>
+              <div className="border-b border-white/40 z-10 pb-4 flex items-center">
+                <AnimatedText
+                  el="p"
+                  text={["Assess", "my", "face"]}
+                  className="text-4xl font-light"
+                  delay={200}
+                  animateLines={true}
+                  animation={{
+                    hidden: {
+                      opacity: 0,
+                      y: 40,
+                    },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.7,
+                        ease: cubicBezier,
+                      },
+                    },
+                  }}
+                />
+                <motion.span
+                  animate={{
+                    left: 0,
+                    opacity: 1,
+                  }}
+                  transition={{ duration: 1, delay: 0.2, ease: cubicBezier }}
+                  className="relative opacity-0 -left-[200px] ml-auto mt-1"
+                >
+                  <ArrowForwardIcon fontSize="large" />
+                </motion.span>
+              </div>
+              <div className="mt-auto text-white/40 z-10">
+                <AnimatedText
+                  el="p"
+                  text={[
+                    "By clicking begin you agree",
+                    "to the privacy policy regarding the",
+                    "usage of your images for your report",
+                  ]}
+                  className="text-sm text-white/40"
+                  animateLines={true}
+                  breakLines={true}
+                />
+              </div>
+            </div>
           </div>
           <div className="w-[40%] border-l p-6 border-t"></div>
         </div>
@@ -183,11 +235,11 @@ const Home = () => {
             height: 400,
             opacity: 1,
           }}
-          transition={{ duration: 0.6, delay: 2, ease: cubicBezier }}
+          transition={{ duration: 1, delay: 1, ease: cubicBezier }}
           className="absolute overflow-hidden top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 spin-container p-[1px] z-[1] opacity-0"
         >
           <div className="spinning-border z-[2]"></div>
-          <div className="relative w-full h-full bg-black z-[3]"></div>
+          <div className="relative w-full h-full  z-[3]"></div>
         </motion.div>
 
         <motion.div
@@ -196,7 +248,7 @@ const Home = () => {
             height: 398,
             opacity: 1,
           }}
-          transition={{ duration: 0.8, delay: 2, ease: cubicBezier }}
+          transition={{ duration: 1, delay: 1, ease: cubicBezier }}
           onUpdate={onContentBoxUpdate}
           className="absolute overflow-hidden top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 z-[10] content-box opacity-0"
           ref={contentBoxContainerRef}
@@ -226,8 +278,9 @@ const Home = () => {
               el="p"
               text={["Nose", "assessment", "report"]}
               className="text-3xl leading-7 "
-              delay={1500}
+              delay={1000}
               animateLines={true}
+              breakLines={true}
               animation={{
                 hidden: {
                   opacity: 0,
