@@ -10,6 +10,30 @@ body {
   cursor: url("/images/cursor.png"), auto;
 }
 
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+.spinning-border {
+  background: conic-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 40%
+  );
+
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  scale: 1.75;
+
+  animation: spin 3s linear infinite;
+}
+
 @layer base {
   * {
     @apply border-border;
