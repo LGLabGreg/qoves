@@ -71,11 +71,11 @@ const Home = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
-      className="lg:flex h-screen"
+      className="xl:flex h-screen"
     >
-      <div className="lg:w-1/2 flex flex-col">
-        <div className="flex h-[calc(100%-274px)]">
-          <div className="w-[60%] p-6 flex justify-center flex-col">
+      <div className="xl:w-1/2 flex flex-col">
+        <div className="xl:flex h-[calc(100%-274px)]">
+          <div className="xl:w-[60%] p-6 flex justify-center flex-col">
             <AnimatedText
               el="p"
               text="Facial aesthetics"
@@ -116,7 +116,10 @@ const Home = () => {
             <AnimatedText
               el="p"
               text={["Straightforward"]}
-              className={cn("text-7xl italic", serif.className)}
+              className={cn(
+                "text-5xl xl:text-6xl 2xl:text-7xl italic",
+                serif.className
+              )}
               delay={200}
               animateLines={true}
               animation={{
@@ -135,7 +138,7 @@ const Home = () => {
               }}
             />
           </div>
-          <div className="w-[40%] border-l p-6 flex items-end">
+          <div className="xl:w-[40%] border-l p-6 flex items-end">
             <AnimatedText
               el="p"
               text={[
@@ -149,8 +152,8 @@ const Home = () => {
             />
           </div>
         </div>
-        <div className="flex h-[274px]">
-          <div className="w-[60%] border-t p-6 flex justify-center items-end">
+        <div className="lg:flex h-[274px]">
+          <div className="lg:w-[60%] border-t p-6 flex justify-center items-end">
             <div className="relative w-full h-[200px] flex flex-col py-3 px-5 text-white">
               <motion.div
                 animate={{
@@ -207,7 +210,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="w-[40%] border-l p-6 border-t"></div>
+          <div className="hidden lg:block w-[40%] border-l p-6 border-t"></div>
         </div>
       </div>
       <motion.div
@@ -215,7 +218,7 @@ const Home = () => {
           transform: "translateX(0)",
         }}
         transition={{ duration: 1, ease: cubicBezier }}
-        className="relative lg:w-1/2 transform translate-x-[100%] image-container"
+        className="relative xl:w-1/2 transform translate-x-[100%] image-container"
         ref={imageContainerRef}
       >
         <motion.div
@@ -238,7 +241,13 @@ const Home = () => {
           transition={{ duration: 1, delay: 1, ease: cubicBezier }}
           className="absolute overflow-hidden top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 spin-container p-[1px] z-[1] opacity-0"
         >
-          <div className="spinning-border z-[2]"></div>
+          <motion.div
+            animate={{
+              opacity: 1,
+            }}
+            transition={{ duration: 1, delay: 1.5, ease: cubicBezier }}
+            className="spinning-border z-[2] opacity-0"
+          ></motion.div>
           <div className="relative w-full h-full  z-[3]"></div>
         </motion.div>
 
